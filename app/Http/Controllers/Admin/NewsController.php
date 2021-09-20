@@ -37,6 +37,9 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'string', 'min:3']
+        ]);
         dd($request->method());
     }
 

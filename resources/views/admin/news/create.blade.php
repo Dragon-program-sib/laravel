@@ -7,19 +7,25 @@
     </div>
     <br>
         <div class="col-md-12">
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            @endif
             <form action="{{ route('admin.news.store') }}" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="title">Заголовок новости</label>
-                    <input type="text" class="form-control" name="title" id="title">
+                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
                 </div>
                 <div class="form-group">
-                    <label for="title">Автор новости</label>
-                    <input type="text" class="form-control" name="author" id="author">
+                    <label for="author">Автор новости</label>
+                    <input type="text" class="form-control" name="author" id="author" value="{{ old('author') }}">
                 </div>
                 <div class="form-group">
-                    <label for="title">Описание новости</label>
+                    <label for="description">Описание новости</label>
                     <textarea class="form-control" type="text" class="form-control" name="description" id="description">
+                        {!! old('description') !!}
                     </textarea>
                 </div>
                 <br>

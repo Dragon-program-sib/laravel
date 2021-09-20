@@ -18,7 +18,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item @if(request()->is('admin')) active @endif">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Панель управления</span>
         </a>
