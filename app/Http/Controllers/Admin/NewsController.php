@@ -40,7 +40,8 @@ class NewsController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'min:3']
         ]);
-        dd($request->method());
+        
+        return response()->json($request->all());
     }
 
     /**
