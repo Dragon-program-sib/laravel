@@ -13,10 +13,31 @@ class NewsTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_available_admin_news_url()
     {
-        $response = $this->get('/');
+        $response = $this->get('/admin/news');
 
         $response->assertStatus(200);
+    }
+
+    public function test_available_only_one_news()
+    {
+        $id = mt_rand(1,20);
+        $response = $this->get('/news/' . $id);
+
+        $response->assertStatus(200);
+    }
+
+    public function test_is_json_data()
+    {
+        $response = $this->get('/api/data');
+
+        $response->assertJson(
+            [
+                'name' => 'Test',
+                'type' => 'User',
+                'status'  => 'Draft'
+            ]
+        )->assertStatus(200);
     }
 }
