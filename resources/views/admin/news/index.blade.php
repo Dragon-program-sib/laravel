@@ -16,23 +16,23 @@
                 <th>Дата добавления</th>
                 <th>Управление</th>
             </thead>
+            <tbody>
             @forelse($newsList as $news)
-                <tbody>
                     <tr>
-                        <td>{{ $news['id'] }}</td>
-                        <td>{{ $news['title'] }}</td>
-                        <td>{!! $news['description'] !!}</td>
-                        <td>{{ now()->format('d-n-Y H:i') }}</td>
+                        <td>{{ $news->id }}</td>
+                        <td>{{ $news->title }}</td>
+                        <td>{!! $news->description !!}</td>
+                        <td>{{ $news->created_at }}</td>
                         <td>
                             <a href="">Редактировать</a>
                             &nbsp;
                             <a href="">Удалить</a>
                         </td>
                     </tr>
-                </tbody>
             @empty
                 <h3>Новости отсутствуют!</h3>   
             @endforelse
+            </tbody>
         </table>
     </div>
 </div>

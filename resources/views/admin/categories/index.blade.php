@@ -29,6 +29,7 @@
                     </td>
                 </tr>
             @empty
+                <h3>Категории отсутствуют!</h3>
             @endforelse
             </tbody>
         </table>

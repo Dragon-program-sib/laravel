@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Faker\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -10,8 +11,9 @@ class News extends Model
 {
     protected $table = 'news';
 
-    public function getNews(): array
+    public function getNews(): Collection
     {
+        //return DB::table($this->table)->get();
         return DB::table($this->table)->get();
     }
 
