@@ -24,7 +24,7 @@
                         <td>{!! $news->description !!}</td>
                         <td>{{ $news->created_at }}</td>
                         <td>
-                            <a href="">Редактировать</a>
+                            <a href="{{ route('admin.news.edit', ['news' => $news->id]) }}">Редактировать</a>
                             &nbsp;
                             <a href="">Удалить</a>
                         </td>

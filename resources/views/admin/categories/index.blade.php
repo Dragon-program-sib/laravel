@@ -24,7 +24,7 @@
                     <td>{{ $category->title }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
-                    <a href="">Ред.</a>
+                    <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}">Ред.</a>
                     <a href="">Уд.</a>
                     </td>
                 </tr>
