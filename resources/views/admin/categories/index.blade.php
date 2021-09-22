@@ -16,6 +16,21 @@
                 <th>Дата добавления</th>
                 <th>Управление</th>
             </thead>
+
+            <tbody>
+            @forelse ($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->title }}</td>
+                    <td>{{ $category->created_at }}</td>
+                    <td>
+                    <a href="">Ред.</a>
+                    <a href="">Уд.</a>
+                    </td>
+                </tr>
+            @empty
+            @endforelse
+            </tbody>
         </table>
     </div>
 </div>
