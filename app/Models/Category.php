@@ -27,4 +27,9 @@ class Category extends Model
     {
         return DB::table($this->table)->find($id);
     }*/
+
+    // We say to update everything except the id field.
+    protected $guarded = [
+        'id'
+    ];
 }

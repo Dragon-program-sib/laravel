@@ -28,7 +28,7 @@ class NewsController extends Controller
         ->select('news.*', 'categories.title as categoryTitle')->get());*/
         //$model = new News();
 
-        $newsList = News:: all();//whereIn('id', [1,3,5,7,9])->get();
+        $newsList = News::all();//whereIn('id', [1,3,5,7,9])->get();
         return view('admin.news.index', [
             'newsList' => $newsList //News::all() //$model->getNews()
         ]);
@@ -95,7 +95,11 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //
+        $categories = Category::all();
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -107,7 +111,25 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string', 'min:3']
+        ]);
+        
+        //$data = $request->only(['category_id', 'title', 'author', 'description']);
+        $news = $news->fill(
+            $request->only(['category_id', 'title', 'author', 'description'])
+        )->save();
+
+        //return response()->json($request->all());
+        if ($news) {
+            return redirect()
+                ->route('admin.news.index')
+                ->with('success', 'Запись успешно обновлена!');
+        }
+
+        return back()
+            ->with('error', 'Запись не обновлена!')
+            ->withInput();
     }
 
     /**

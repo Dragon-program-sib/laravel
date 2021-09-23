@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.categories.create");
     }
 
     /**
@@ -61,9 +61,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        //dd($category);
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -75,7 +78,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        //$category->title = $request->input('title');
+        //$category->description = $request->input('description');
+        $category = $category->fill(
+            $request->only(['title', 'description'])
+        )->save();
+
+        if($category) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('success', 'Запись успешно обновлена!');
+        }
+
+        return back()
+            ->with('error', 'Запись не была обновлена!')
+            ->withInput();
     }
 
     /**
