@@ -25,10 +25,11 @@ class NewsController extends Controller
         /*dd(DB::table('news')
         ->join('categories', 'categories.id', '=', 'news.category_id')
         ->select('news.*', 'categories.title as categoryTitle')->get());*/
-        $model = new News();
+        //$model = new News();
 
+        $newsList = News::whereIn('id', [1,3,5,7,9])->get();
         return view('admin.news.index', [
-            'newsList' => $model->getNews()
+            'newsList' => $newsList //News::all() //$model->getNews()
         ]);
     }
 

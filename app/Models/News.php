@@ -11,14 +11,14 @@ class News extends Model
 {
     protected $table = 'news';
 
-    public function getNews(): Collection
+    /*public function getNews(): Collection
     {
         //return DB::table($this->table)->get();
         return DB::table($this->table)->get();
     }
 
-    public function getNewsById($id)
+    public function getNewsById(int $id)
     {
         return DB::table($this->table)->find($id);
-    }
+    }*/
 }

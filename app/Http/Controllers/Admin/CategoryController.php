@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $model = new Category();
+        //$model = new Category();
         //dd($model->getCategoryById(3));
-        $categories = $model->getCategories();
+        $categories = Category::all(); //$model->getCategories();
         return view('admin.categories.index', [
             'categories' => $categories
         ]);

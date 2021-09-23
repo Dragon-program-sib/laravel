@@ -15,6 +15,10 @@
             <form action="{{ route('admin.news.store') }}" method="post">
                 @csrf
                 <div class="form-group">
+                    <label for="category_id">Категория новости</label>
+                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+                </div>
+                <div class="form-group">
                     <label for="title">Заголовок новости</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
                 </div>

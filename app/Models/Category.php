@@ -12,19 +12,19 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    public function getCategories()
+    /*public function getCategories()
     {
         //return DB::select("SELECT id, title, description, created_at FROM {$this->table}");
 
-        /*return DB::select("SELECT id, title, description, created_at FROM {$this->table} WHERE id = :id", [
+        return DB::select("SELECT id, title, description, created_at FROM {$this->table} WHERE id = :id", [
             'id' => 2
-        ]);*/
+        ]);
 
         return DB::table($this->table)->get();
-    }
+    }*
 
     public function getCategoryById(int $id)
     {
         return DB::table($this->table)->find($id);
-    }
+    }*/
 }
