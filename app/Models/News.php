@@ -21,4 +21,9 @@ class News extends Model
     {
         return DB::table($this->table)->find($id);
     }*/
+
+    // We allow updating the specified fields.
+    protected $fillable = [
+        'category_id', 'title', 'author', 'description'
+    ];
 }

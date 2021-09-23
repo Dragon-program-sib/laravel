@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -27,7 +28,7 @@ class NewsController extends Controller
         ->select('news.*', 'categories.title as categoryTitle')->get());*/
         //$model = new News();
 
-        $newsList = News::whereIn('id', [1,3,5,7,9])->get();
+        $newsList = News:: all();//whereIn('id', [1,3,5,7,9])->get();
         return view('admin.news.index', [
             'newsList' => $newsList //News::all() //$model->getNews()
         ]);
@@ -38,9 +39,12 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.news.create');
+        $categories = Category::all();
+        return view('admin.news.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -55,7 +59,21 @@ class NewsController extends Controller
             'title' => ['required', 'string', 'min:3']
         ]);
         
-        return response()->json($request->all());
+        //$data = $request->only(['category_id', 'title', 'author', 'description']);
+        $news = News::create(
+            $request->only(['category_id', 'title', 'author', 'description'])
+        );
+
+        //return response()->json($request->all());
+        if ($news) {
+            return redirect()
+                ->route('admin.news.index')
+                ->with('success', 'Запись успешно добавлена!');
+        }
+
+        return back()
+            ->with('error', 'Запись не добавлена!')
+            ->withInput();
     }
 
     /**
