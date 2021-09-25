@@ -28,7 +28,11 @@ class NewsController extends Controller
         ->select('news.*', 'categories.title as categoryTitle')->get());*/
         //$model = new News();
 
-        $newsList = News::all();//whereIn('id', [1,3,5,7,9])->get();
+        $newsList = News::orderBy('id', 'desc')//all();//whereIn('id', [1,3,5,7,9])->get();
+            ->paginate(
+                config('news.paginate')
+            );
+            
         return view('admin.news.index', [
             'newsList' => $newsList //News::all() //$model->getNews()
         ]);
