@@ -5,6 +5,7 @@ namespace App\Models;
 use Faker\Factory;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class News extends Model
@@ -26,4 +27,9 @@ class News extends Model
     protected $fillable = [
         'category_id', 'title', 'author', 'description'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

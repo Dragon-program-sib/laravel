@@ -17,7 +17,9 @@ class CategoryController extends Controller
     {
         //$model = new Category();
         //dd($model->getCategoryById(3));
-        $categories = Category::all(); //$model->getCategories();
+        $categories = Category::withCount('news')->get();//all(); //$model->getCategories();
+        //dd($categories);
+
         return view('admin.categories.index', [
             'categories' => $categories
         ]);

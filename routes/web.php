@@ -64,3 +64,8 @@ Route::get('/news', [NewsController::class, 'index'])
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
+
+Route::get('/collection', function() {
+    $collect = collect([1,3,6,7,2,8,9,23,68,11,6]);
+    dd($collect->max()); // We find the maximum number from the collection.
+});

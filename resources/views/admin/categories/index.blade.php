@@ -12,6 +12,7 @@
         <table class="table table-bordered">
             <thead>
                 <th>#ID</th>
+                <th>Колличество новостей</th>
                 <th>Заголовок</th>
                 <th>Дата добавления</th>
                 <th>Управление</th>
@@ -20,7 +21,7 @@
             <tbody>
             @forelse ($categories as $category)
                 <tr>
-                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->id }}({{ $category->news_count }})</td>
                     <td>{{ $category->title }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
