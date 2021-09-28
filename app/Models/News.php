@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace App\Models;
 
-use Faker\Factory;
-use Illuminate\Support\Collection;
+//use Faker\Factory;
+//use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {

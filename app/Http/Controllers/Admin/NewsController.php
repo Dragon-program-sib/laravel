@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreateRequest;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -57,15 +59,16 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsCreateRequest $request)
     {
-        $request->validate([
+        /*$request->validate([
             'title' => ['required', 'string', 'min:3']
-        ]);
+        ]);*/
         
         //$data = $request->only(['category_id', 'title', 'author', 'description']);
         $news = News::create(
-            $request->only(['category_id', 'title', 'author', 'description'])
+            //$request->only(['category_id', 'title', 'author', 'description'])
+            $request->validated()
         );
 
         //return response()->json($request->all());
@@ -109,19 +112,20 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  NewsUpdateRequest  $request
+     * @param  News  $news
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, News $news)
+    public function update(NewsUpdateRequest $request, News $news)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:3']
-        ]);
+        /*$request->validate([
+            //
+        ]);*/
         
         //$data = $request->only(['category_id', 'title', 'author', 'description']);
         $news = $news->fill(
-            $request->only(['category_id', 'title', 'author', 'description'])
+            //$request->only(['category_id', 'title', 'author', 'description'])
+            $request->validated()
         )->save();
 
         //return response()->json($request->all());
