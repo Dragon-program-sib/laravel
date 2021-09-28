@@ -11,7 +11,7 @@ class NewsUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()//: bool
+    public function authorize() //: bool
     {
         return true;
     }

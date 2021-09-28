@@ -30,7 +30,7 @@
                                 <td>
                                     <a href="{{ route('admin.news.edit', ['news' => $news->id]) }}">Редактировать</a>
                                     &nbsp;
-                                    <a href="">Удалить</a>
+                                    <a href="javascript:;" class="delete" rel="{{ $news->id }}">Удалить</a>
                                 </td>
                             </tr>
                     @empty
@@ -45,3 +45,31 @@
 </div>
 {{-- Комментарий. --}}
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        $(function() {
+            $(".delete").on('click', function() {
+                var id = $(this).attr("rel");
+
+                if (confirm("Подтверждаете удаление записи, с #ID " + id)) {
+                    $.ajax({
+                        type: "delete",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "/admin/news/" + id,
+                        success: function (response) {
+                            alert("Запись успешно удалена!");
+                            console.log(responce);
+                            //location.reload();
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endpush

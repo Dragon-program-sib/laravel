@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -7,7 +8,11 @@ use App\Http\Requests\NewsCreateRequest;
 use App\Http\Requests\NewsUpdateRequest;
 use App\Models\Category;
 use App\Models\News;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+
 //use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
@@ -30,11 +35,11 @@ class NewsController extends Controller
         ->select('news.*', 'categories.title as categoryTitle')->get());*/
         //$model = new News();
 
-        $newsList = News::with('category')//News::orderBy('id', 'desc')//all();//whereIn('id', [1,3,5,7,9])->get();
+        $newsList = News::with('category') //News::orderBy('id', 'desc')//all();//whereIn('id', [1,3,5,7,9])->get();
             ->paginate(
                 config('news.paginate')
             );
-            
+
         return view('admin.news.index', [
             'newsList' => $newsList //News::all() //$model->getNews()
         ]);
@@ -64,7 +69,7 @@ class NewsController extends Controller
         /*$request->validate([
             'title' => ['required', 'string', 'min:3']
         ]);*/
-        
+
         //$data = $request->only(['category_id', 'title', 'author', 'description']);
         $news = News::create(
             //$request->only(['category_id', 'title', 'author', 'description'])
@@ -121,7 +126,7 @@ class NewsController extends Controller
         /*$request->validate([
             //
         ]);*/
-        
+
         //$data = $request->only(['category_id', 'title', 'author', 'description']);
         $news = $news->fill(
             //$request->only(['category_id', 'title', 'author', 'description'])
@@ -144,10 +149,20 @@ class NewsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(News $news)
+    public function destroy(Request $request, News $news)
     {
-        //
+        if($request->ajax()) {
+            try {
+                if ($news->delete()) {
+                    return response()->json(['message' => 'ok']);
+                }
+                return response()->json(['message' => 'error'], 400);
+            } catch (Exception $e) {
+                Log::error("Error delete news!" . PHP_EOL, [$e]);
+                return response()->json(['message' => 'error'], 400);
+            }
+        }
     }
 }
