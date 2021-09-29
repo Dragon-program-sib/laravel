@@ -155,10 +155,10 @@ class NewsController extends Controller
     {
         if($request->ajax()) {
             try {
-                if ($news->delete()) {
-                    return response()->json(['message' => 'ok']);
-                }
-                return response()->json(['message' => 'error'], 400);
+                $news->delete();
+
+                return response()->json(['message' => 'ok']);
+                //return response()->json(['message' => 'error'], 400);
             } catch (Exception $e) {
                 Log::error("Error delete news!" . PHP_EOL, [$e]);
                 return response()->json(['message' => 'error'], 400);
