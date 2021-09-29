@@ -80,11 +80,11 @@ class NewsController extends Controller
         if ($news) {
             return redirect()
                 ->route('admin.news.index')
-                ->with('success', 'Запись успешно добавлена!');
+                ->with('success', trans('messages.admin.news.create.success'));
         }
 
         return back()
-            ->with('error', 'Запись не добавлена!')
+            ->with('error', __('messages.admin.news.create.fail'))
             ->withInput();
     }
 
@@ -137,11 +137,11 @@ class NewsController extends Controller
         if ($news) {
             return redirect()
                 ->route('admin.news.index')
-                ->with('success', 'Запись успешно обновлена!');
+                ->with('success', __('messages.admin.news.update.success'));
         }
 
         return back()
-            ->with('error', 'Запись не обновлена!')
+            ->with('error', __('messages.admin.news.update.fail'))
             ->withInput();
     }
 
