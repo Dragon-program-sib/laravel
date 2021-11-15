@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/name/{name}', function(string $name) {
+Route::get('/name/{name}', function (string $name) {
     return "Hello, {$name}!";
 });
 
@@ -52,7 +53,7 @@ Route::get('/page', function () use ($text, $title, $content) {
 });
 
 // Admin.
-Route::group(['prefix' =>'admin', 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
 });
@@ -65,7 +66,24 @@ Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
 
-Route::get('/collection', function() {
-    $collect = collect([1,3,6,7,2,8,9,23,68,11,6]);
+Route::get('/collection', function () {
+    $collect = collect([1, 3, 6, 7, 2, 8, 9, 23, 68, 11, 6]);
     dd($collect->max()); // We find the maximum number from the collection.
 });
+
+Route::get('/session', function () {
+    if (!session()->has('demo')) {
+        session(['demo' => 1]); // ->put('demo', 1);
+    }
+    //dd(session()->get('demo'));   ->remove('demo'));
+    //$all = session()->all();
+    //dd($all);
+    dump(session()->all());
+
+    // Setting cookies.
+    /*return redirect()->route('admin.news.index')->withCookie(['one' => 'one']);*/
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

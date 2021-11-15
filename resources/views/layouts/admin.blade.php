@@ -90,4 +90,5 @@
 
     @stack('js')
 </body>
+
 </html>
